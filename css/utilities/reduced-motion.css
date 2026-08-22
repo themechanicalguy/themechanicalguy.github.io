@@ -1,0 +1,13 @@
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .js-ready .reveal,
+  .js-ready .reveal.in { opacity: 1; transform: none; transition: none; }
+  #scanline { animation: none; display: none; }
+  html { scroll-behavior: auto; }
+  /* typewriter: show one phrase statically, no motion */
+  .tw { animation: none; border-right: none; }
+  .tw1 { opacity: 1; width: auto; }
+  .tw2, .tw3 { display: none; }
+  /* boot log: show all lines immediately */
+  .boot-line { animation: none; opacity: 1; }
+}

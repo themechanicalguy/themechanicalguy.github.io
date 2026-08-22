@@ -1,0 +1,44 @@
+/* ---------- Mechanism canvas (hero only, both themes) ---------- */
+#rain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+[data-theme="dark"] #rain { opacity: 0.6; }
+[data-theme="light"] #rain { opacity: 0.9; }
+
+/* ---------- CAD dot-grid (dark only, behind mechanism) ---------- */
+#cad-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  background-image: radial-gradient(rgba(90,200,255,0.10) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+[data-theme="dark"] #cad-grid { opacity: 1; }
+
+/* ---------- Scanline sweep (dark only) ---------- */
+#scanline {
+  position: fixed;
+  left: 0; right: 0;
+  height: 140px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(180deg, transparent, rgba(79,214,255,0.06), transparent);
+}
+[data-theme="dark"] #scanline {
+  opacity: 1;
+  animation: sweep 7s linear infinite;
+}
+@keyframes sweep {
+  0% { top: -140px; }
+  100% { top: 100vh; }
+}

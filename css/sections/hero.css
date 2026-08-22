@@ -1,0 +1,116 @@
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 90px;
+  overflow: hidden;
+}
+.hero > *:not(#rain) {
+  position: relative;
+  z-index: 1;
+}
+
+.boot {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--fg-dim);
+  margin-bottom: 26px;
+  min-height: 4.5em;
+}
+.boot-line {
+  display: block;
+  opacity: 0;
+  animation: bootIn 0.4s ease forwards;
+}
+.bl1 { animation-delay: 0.2s; }
+.bl2 { animation-delay: 0.75s; }
+.bl3 { animation-delay: 1.3s; }
+.bl4 { animation-delay: 1.85s; }
+@keyframes bootIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.boot .ok { color: var(--accent); }
+[data-theme="light"] .boot { opacity: 0.6; }
+
+.hero h1 {
+  font-size: clamp(2.8rem, 9vw, 6rem);
+  line-height: 0.95;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+[data-theme="dark"] .hero h1 { text-shadow: 0 0 22px rgba(79,214,255,0.22); }
+
+.role {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2vw, 1.25rem);
+  font-weight: 400;
+  color: var(--accent);
+  text-shadow: var(--glow);
+}
+
+.hero-line {
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  color: var(--fg-dim);
+  margin-top: 26px;
+  min-height: 1.4em;
+}
+
+/* ---------- CSS-only typewriter (monospace = exact ch widths) ---------- */
+.cssType {
+  position: relative;
+  height: 1.5em;
+  overflow: hidden;
+}
+.tw {
+  position: absolute;
+  left: 0; top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+  border-right: 2px solid var(--accent);
+}
+.tw1 { animation: type1 13.5s linear infinite, caret 1s step-end infinite; }
+.tw2 { animation: type2 13.5s linear infinite, caret 1s step-end infinite; }
+.tw3 { animation: type3 13.5s linear infinite, caret 1s step-end infinite; }
+
+/* each phrase owns one third of the timeline (0-33% / 33-66% / 66-100%),
+   typing over the first slice, holding, then hiding */
+@keyframes type1 {
+  0%   { opacity: 1; width: 0;    animation-timing-function: steps(52, end); }
+  13%  { opacity: 1; width: 52ch; }
+  30%  { opacity: 1; width: 52ch; }
+  33%  { opacity: 0; width: 52ch; }
+  100% { opacity: 0; width: 52ch; }
+}
+@keyframes type2 {
+  0%,33% { opacity: 0; width: 0; }
+  33.01% { opacity: 1; width: 0;    animation-timing-function: steps(44, end); }
+  46%    { opacity: 1; width: 44ch; }
+  63%    { opacity: 1; width: 44ch; }
+  66%    { opacity: 0; width: 44ch; }
+  100%   { opacity: 0; width: 44ch; }
+}
+@keyframes type3 {
+  0%,66% { opacity: 0; width: 0; }
+  66.01% { opacity: 1; width: 0;    animation-timing-function: steps(44, end); }
+  79%    { opacity: 1; width: 44ch; }
+  97%    { opacity: 1; width: 44ch; }
+  100%   { opacity: 1; width: 44ch; }
+}
+@keyframes caret {
+  0%, 100% { border-right-color: var(--accent); }
+  50%      { border-right-color: transparent; }
+}
+
+.hero-desc {
+  max-width: 560px;
+  margin-top: 22px;
+  color: var(--fg-dim);
+}

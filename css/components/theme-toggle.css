@@ -1,0 +1,20 @@
+/* ---------- Theme toggle ---------- */
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-dim);
+  background: none;
+  border: 1px solid var(--line);
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.toggle:hover { border-color: var(--accent); color: var(--accent); }
+.toggle .icon { width: 14px; height: 14px; display: inline-block; }
+.toggle svg,
+.toggle span { pointer-events: none; }
+[data-theme="dark"] .toggle .sun { display: none; }
+[data-theme="light"] .toggle .moon { display: none; }

@@ -1,0 +1,71 @@
+/* ---------- Experience timeline (blueprint datum) ---------- */
+.timeline {
+  position: relative;
+  margin-top: 10px;
+  padding-left: 34px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px; top: 6px; bottom: 6px;
+  width: 1px;
+  background: var(--line);
+}
+.tl-item { position: relative; padding: 0 0 40px; }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-node {
+  position: absolute;
+  left: -34px; top: 6px;
+  width: 11px; height: 11px;
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  border-radius: 50%;
+  box-shadow: var(--glow);
+}
+.tl-node::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.tl-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tl-head h3 { font-size: 1.25rem; }
+.tl-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-shadow: var(--glow);
+  white-space: nowrap;
+}
+.tl-company {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--fg-dim);
+  margin: 4px 0 12px;
+}
+.tl-points { list-style: none; }
+.tl-points li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 8px;
+  color: var(--fg-dim);
+  max-width: 68ch;
+}
+.tl-points li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.tl-item .chips {
+  margin-top: 14px;
+  margin-bottom: 0;
+}

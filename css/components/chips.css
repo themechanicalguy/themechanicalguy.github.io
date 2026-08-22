@@ -1,0 +1,19 @@
+.cat-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+.cat-chips span {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  color: var(--fg-dim);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+.cat-chips span:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  text-shadow: var(--glow);
+}
+.cat-featured .cat-chips span { font-size: 0.85rem; padding: 9px 14px; }
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.chips span { font-family: var(--font-mono); font-size: 0.68rem; border: 1px solid var(--line); padding: 4px 9px; color: var(--fg-dim); }

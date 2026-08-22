@@ -1,0 +1,28 @@
+/* ---------- Content wrapper ---------- */
+main { position: relative; z-index: 5; }
+
+.section {
+  padding: 100px var(--pad) 80px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  scroll-margin-top: 72px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-shadow: var(--glow);
+  margin-bottom: 18px;
+  display: block;
+}
+
+/* ---------- Shared section heading ---------- */
+.section-h { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 22px; }
+.section-note {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--fg-dim);
+  margin: 8px 0 30px;
+}

@@ -1,0 +1,17 @@
+.actions { display: flex; gap: 14px; margin-top: 38px; flex-wrap: wrap; }
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 13px 24px;
+  border: 1px solid var(--line);
+  transition: all 0.25s ease;
+}
+.btn-solid {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+  box-shadow: var(--glow);
+}
+.btn-solid:hover { transform: translateY(-2px); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); text-shadow: var(--glow); }

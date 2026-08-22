@@ -1,0 +1,13 @@
+/* ---------- Contact ---------- */
+.contact-list { margin-top: 32px; border-top: 1px solid var(--line); }
+.c-link {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 4px; border-bottom: 1px solid var(--line);
+  transition: padding-left 0.25s ease, color 0.2s ease;
+}
+.c-link:hover { padding-left: 12px; color: var(--accent); }
+.c-link .lbl { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--accent); text-shadow: var(--glow); }
+.c-link .val { font-family: var(--font-mono); font-size: 0.88rem; }
+@media (max-width: 600px) { .c-link { flex-direction: column; align-items: flex-start; gap: 5px; } }
+
+.footer { margin-top: 54px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--fg-dim); }

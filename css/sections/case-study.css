@@ -1,0 +1,99 @@
+/* ---------- Case study page ---------- */
+.case {
+  padding-top: 120px;
+  max-width: 860px;
+}
+
+.case-back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--fg-dim);
+  margin-bottom: 28px;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+.case-back:hover {
+  color: var(--accent);
+  text-shadow: var(--glow);
+}
+
+.case h1 {
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.case-lead {
+  color: var(--fg-dim);
+  max-width: 62ch;
+  margin-bottom: 36px;
+  font-size: 1.05rem;
+}
+
+.case-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 48px;
+}
+.case-meta-item {
+  background: var(--card);
+  padding: 18px 20px;
+}
+.case-meta-item b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-shadow: var(--glow);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.case-meta-item span {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+}
+
+.case-block {
+  margin-bottom: 40px;
+}
+.case-block h2 {
+  font-size: 1.2rem;
+  margin-bottom: 14px;
+}
+.case-block p {
+  color: var(--fg-dim);
+  max-width: 62ch;
+  margin-bottom: 14px;
+}
+.case-block ul {
+  list-style: none;
+  max-width: 62ch;
+}
+.case-block li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 10px;
+  color: var(--fg-dim);
+}
+.case-block li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.case .chips { margin-top: 8px; }
+
+.case-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}

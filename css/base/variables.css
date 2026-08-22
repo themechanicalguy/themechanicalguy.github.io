@@ -1,0 +1,36 @@
+/* =====================================================
+   DUAL SOUL — one site, two personalities
+   Light = Architect's Paper (calm, simple)
+   Dark  = Terminal Live (energetic coder)
+   ===================================================== */
+
+:root {
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --pad: clamp(24px, 6vw, 90px);
+}
+
+/* ---------- LIGHT: Architect's Paper ---------- */
+[data-theme="light"] {
+  --bg: #f4f1ea;
+  --bg-alt: #ece8df;
+  --fg: #1a1a1a;
+  --fg-dim: #6b665c;
+  --line: rgba(26, 26, 26, 0.12);
+  --accent: #b5502a;
+  --glow: none;
+  --card: #faf8f3;
+}
+
+/* ---------- DARK: Kinematic Blueprint ---------- */
+[data-theme="dark"] {
+  --bg: #060a12;
+  --bg-alt: #0a0f1a;
+  --fg: #dbe6f0;
+  --fg-dim: #7c8b9c;
+  --line: rgba(90, 200, 255, 0.14);
+  --accent: #4fd6ff;      /* blueprint cyan */
+  --accent-2: #ffb454;    /* amber annotation / CAD highlight */
+  --glow: 0 0 12px rgba(79, 214, 255, 0.5);
+  --card: #0b111c;
+}
