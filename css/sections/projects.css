@@ -12,4 +12,5 @@
 .proj p { color: var(--fg-dim); max-width: 60ch; margin-bottom: 12px; }
 .proj-link { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); text-shadow: var(--glow); border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
 .proj-link:hover { border-color: var(--accent); }
+.proj-more { margin-top: 28px; text-align: right; }
 @media (max-width: 600px) { .proj { flex-direction: column; gap: 6px; } }
