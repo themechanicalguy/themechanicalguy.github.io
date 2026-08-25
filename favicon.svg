@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Saurav">
+  <rect width="32" height="32" rx="7" fill="#060a12"/>
+  <rect x="1.25" y="1.25" width="29.5" height="29.5" rx="6" fill="none" stroke="#4fd6ff" stroke-width="1.5"/>
+  <text x="16" y="22.5" text-anchor="middle" fill="#4fd6ff" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" font-weight="700">S</text>
+  <text x="25.5" y="27.5" text-anchor="middle" fill="#ffb454" font-family="ui-monospace, monospace" font-size="6" font-weight="700">&gt;_</text>
+</svg>

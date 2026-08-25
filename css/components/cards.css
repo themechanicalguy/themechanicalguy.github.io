@@ -64,6 +64,7 @@
   min-height: 240px;
   flex: 0 0 min(82%, 300px);
   box-sizing: border-box;
+  scroll-snap-align: start;
 }
 .cert-top { display: flex; justify-content: space-between; align-items: center; }
 .cert-tag { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--accent); text-shadow: var(--glow); }
@@ -75,14 +76,25 @@
 
 .cert-carousel { margin-top: 12px; }
 .cert-viewport {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
+  cursor: grab;
+  outline: none;
+  scrollbar-width: none;
+}
+.cert-viewport::-webkit-scrollbar { display: none; }
+.cert-viewport.is-dragging {
+  cursor: grabbing;
+  user-select: none;
 }
 .cert-track {
   display: flex;
   gap: 14px;
-  will-change: transform;
-  transition: transform 0.35s ease;
 }
 .cert-nav {
   display: flex;
@@ -93,27 +105,8 @@
   position: relative;
   z-index: 2;
 }
-.cert-btn {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  color: var(--accent);
-  text-shadow: var(--glow);
-  border: 1px solid var(--line);
-  background: var(--card);
-  width: 40px;
-  height: 40px;
-  line-height: 1;
-  cursor: pointer;
-  pointer-events: auto;
-  transition: border-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
-}
-.cert-btn:hover:not(.is-off) {
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-.cert-btn.is-off { opacity: 0.35; }
 
-.cert-dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; max-width: 60%; }
+.cert-dots { display: flex; gap: 7px; flex-wrap: wrap; justify-content: center; }
 .cert-dot {
   width: 7px;
   height: 7px;

@@ -1,50 +1,52 @@
 export function initCertCarousel() {
   const viewport = document.querySelector('.cert-viewport');
   const track = document.querySelector('[data-cert-track]');
-  const prev = document.getElementById('certPrev') || document.querySelector('[data-cert-prev]');
-  const next = document.getElementById('certNext') || document.querySelector('[data-cert-next]');
   const dotsWrap = document.querySelector('[data-cert-dots]');
-  if (!viewport || !track || !prev || !next || !dotsWrap) return;
+  if (!viewport || !track || !dotsWrap) return;
 
   const cards = Array.from(track.querySelectorAll('.cert'));
   if (!cards.length) return;
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  track.style.transition = reduce ? 'none' : 'transform 0.35s ease';
+  const dragThreshold = 8;
 
-  let page = 0;
   let startX = 0;
+  let startScroll = 0;
   let dragging = false;
-  let wheelLock = false;
+  let dragged = false;
+  let raf = 0;
 
-  function gap() {
-    return parseFloat(getComputedStyle(track).gap) || 0;
+  function cardOffset(card) {
+    return card.getBoundingClientRect().left - viewport.getBoundingClientRect().left + viewport.scrollLeft;
   }
 
-  function perView() {
-    const w = viewport.clientWidth;
-    if (w >= 1080) return 3;
-    if (w >= 720) return 2;
-    return 1;
+  function nearestIndex() {
+    const x = viewport.scrollLeft;
+    let best = 0;
+    let bestDist = Infinity;
+    cards.forEach(function (card, i) {
+      const dist = Math.abs(cardOffset(card) - x);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    });
+    return best;
   }
 
-  function maxPage() {
-    return Math.max(0, cards.length - perView());
-  }
-
-  function step() {
-    return cards[0].getBoundingClientRect().width + gap();
-  }
-
-  function render() {
-    page = Math.max(0, Math.min(page, maxPage()));
-    track.style.transform = 'translateX(' + (-page * step()) + 'px)';
-    prev.classList.toggle('is-off', page <= 0);
-    next.classList.toggle('is-off', page >= maxPage());
-    prev.setAttribute('aria-disabled', page <= 0 ? 'true' : 'false');
-    next.setAttribute('aria-disabled', page >= maxPage() ? 'true' : 'false');
+  function syncDots() {
+    const page = nearestIndex();
     dotsWrap.querySelectorAll('.cert-dot').forEach(function (dot, n) {
       dot.classList.toggle('is-on', n === page);
+    });
+  }
+
+  function scrollToCard(index, animate) {
+    const card = cards[Math.max(0, Math.min(index, cards.length - 1))];
+    if (!card) return;
+    viewport.scrollTo({
+      left: cardOffset(card),
+      behavior: animate && !reduce ? 'smooth' : 'auto'
     });
   }
 
@@ -57,56 +59,65 @@ export function initCertCarousel() {
     dotsWrap.appendChild(dot);
   });
 
-  function onClick(e) {
+  dotsWrap.addEventListener('click', function (e) {
     const t = e.target;
     if (!(t instanceof Element)) return;
-    if (t.closest('#certNext, [data-cert-next]')) {
-      e.preventDefault();
-      page += 1;
-      render();
-      return;
-    }
-    if (t.closest('#certPrev, [data-cert-prev]')) {
-      e.preventDefault();
-      page -= 1;
-      render();
-      return;
-    }
     const dot = t.closest('.cert-dot');
-    if (dot && dotsWrap.contains(dot)) {
-      page = Array.prototype.indexOf.call(dotsWrap.children, dot);
-      render();
-    }
+    if (!dot) return;
+    scrollToCard(Array.prototype.indexOf.call(dotsWrap.children, dot), true);
+  });
+
+  viewport.addEventListener('scroll', function () {
+    if (raf) return;
+    raf = window.requestAnimationFrame(function () {
+      raf = 0;
+      syncDots();
+    });
+  }, { passive: true });
+
+  function onPointerDown(e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    dragging = true;
+    dragged = false;
+    startX = e.clientX;
+    startScroll = viewport.scrollLeft;
+    viewport.classList.add('is-dragging');
   }
 
-  document.addEventListener('click', onClick);
+  function onPointerMove(e) {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > dragThreshold) dragged = true;
+    viewport.scrollLeft = startScroll - dx;
+  }
 
-  viewport.addEventListener('pointerdown', function (e) {
-    dragging = true;
-    startX = e.clientX;
-  });
-  viewport.addEventListener('pointerup', function (e) {
+  function onPointerEnd() {
     if (!dragging) return;
     dragging = false;
-    const dx = e.clientX - startX;
-    if (dx < -40) page += 1;
-    if (dx > 40) page -= 1;
-    render();
-  });
-  viewport.addEventListener('pointerleave', function () { dragging = false; });
+    viewport.classList.remove('is-dragging');
+  }
 
-  viewport.addEventListener('wheel', function (e) {
-    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+  viewport.addEventListener('pointerdown', onPointerDown);
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', onPointerEnd);
+  window.addEventListener('pointercancel', onPointerEnd);
+
+  viewport.addEventListener('click', function (e) {
+    if (!dragged) return;
     e.preventDefault();
-    if (wheelLock) return;
-    if (e.deltaX > 12) page += 1;
-    else if (e.deltaX < -12) page -= 1;
-    else return;
-    wheelLock = true;
-    render();
-    window.setTimeout(function () { wheelLock = false; }, 320);
-  }, { passive: false });
+    e.stopPropagation();
+    dragged = false;
+  }, true);
 
-  window.addEventListener('resize', render);
-  render();
+  viewport.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      scrollToCard(nearestIndex() + 1, true);
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      scrollToCard(nearestIndex() - 1, true);
+    }
+  });
+
+  syncDots();
 }
